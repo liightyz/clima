@@ -1,6 +1,6 @@
 .container{
   min-height: 100vh;
-  background: linear-gradient(135deg, #a600ff 0%, #009dff 100%);
+  background: linear-gradient(135deg, #387c27 0%, #2d5b79 100%);
   padding: 32px;
 }
 .content{
@@ -68,4 +68,49 @@ color: #2424bab3;
 .busca-container button:disabled{
   cursor: not-allowed;
   background: #30243d;
+}
+#card-resultado{
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px #00000098;
+  padding: 32px;
+
+}
+
+#cidade-info{
+  text-align: center;
+  margin-bottom: 24px;
+
+}
+#cidade-nome{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+#cidade-desc{
+  color: #3b3b3b;
+  text-transform: capitalize;
+  font-size: 1.1em;
+}
+
+#temperatura-box{
+  text-align: center;
+  margin-bottom: 32px;
+
+}
+#temp-valor{
+  font-size: 3.7em;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 8px;
+
+}
+#temp-sens{
+  color: #313435;
 }
