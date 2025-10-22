@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import './App.css'
-import { CloudSun, MapPinned } from 'lucide-react';
+import { CloudSun, MapPinned, Thermometer, Droplet, Wind } from 'lucide-react';
 
 function App() {
   const [cidade, setCidade] = useState('');
   const [clima, setClima] = useState(null);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState('');
+  
 
   //função para buscar dados do clima
   const buscarClima = async () => {
@@ -19,12 +20,24 @@ function App() {
     setCarregando(true);
     setErro('');
 
+    // Try Executa os comandos
     try{
+      const API_KEY = "";
+      const url = "";
+      const resposta = await fetch(url);
+
+      if(!resposta.ok){
+        throw new Error('Cidade não encontrada');
+      }
+
+      const dados = await resposta.json();
+      setClima(dados);
 
     }catch (error){
-
+      setErro(error.message);
+      setClima(null);
     }finally{
-      
+      setCarregando(false);
     }
   }
   return (
@@ -33,41 +46,84 @@ function App() {
         <div className="content">
           <header>
             <h1>
-              <CloudSun color="violet" size={48} />
+              <CloudSun color="white" size={48} />
               Consulta de Clima
             </h1>
             <p>Exemplo de consumo de API com React</p>
           </header>
-          {/* caixa de busca
-           */}
+          
+          {/* Caixa de Busca */}
           <div className="busca-box">
             <div className="busca-container">
-              <input type="text" 
-              placeholder='digite o nome da sua cidade'/>
-            <button>Buscar</button>
-          </div>
+              <input 
+                type="text"
+                placeholder="Digite o nome da cidade.."
+              />
+              <button>Buscar</button>
+            </div>
           </div>
 
-          {/* resultado do clima */}
+          {/* Resultado do Clima */}
           <div id="card-resultado">
             <div id="cidade-info">
               <div id="cidade-nome">
-                <MapPinned color="darkred" size={25} />
+                <MapPinned style={{color: '#550808ff'}} size={48} />
                 Campinas, BR
               </div>
               <p id="cidade-desc">
-                nublado
+                Nublado
               </p>
-            </div>
+            </div> {/* Fecha #cidade-desc*/}
+
+            {/* Temperatura principal */}
             <div id="temperatura-box">
-              <div id="temp-valor">
-                21º
-              </div>
+              <div id="temp-valor">21°C</div>
               <div id="temp-sens">
-                  sensação termica: 21º
+                Sensação Térmica: 21°C
               </div>
             </div>
-          </div>
+
+            <div id="detalhe-box">
+              {/* Temperatura */}
+              <div className="detal-item">
+                <div className="detal-icone">
+                    <Thermometer />
+                </div>
+                <p className="detal-texto">
+                  min/max
+                </p>
+                <p className="detal-valor">
+                  23º/27º
+                </p>
+              </div>{/*fim  umid */}
+
+              <div className="detal-item">
+                <div className="detal-icone">
+                    <Droplet />
+                </div>
+                <p className="detal-texto">
+                  umidade
+                </p>
+                <p className="detal-valor">
+                  12%
+                </p>
+              </div>{/*fim  Temperatura */}
+
+              <div className="detal-item">
+                <div className="detal-icone">
+                    <Wind />
+                </div>
+                <p className="detal-texto">
+                  min/max
+                </p>
+                <p className="detal-valor">
+                  23º/27º
+                </p>
+              </div>{/*fim  Temperatura */}
+            </div>
+
+          </div> {/* Fecha #card-resultado */}
+
           
         </div>
       </div>
