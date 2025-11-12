@@ -7,31 +7,31 @@ function App() {
   const [clima, setClima] = useState(null);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState('');
-  
 
   //função para buscar dados do clima
   const buscarClima = async () => {
     //validação do campo vazio da cidade
     if (!cidade.trim()){
-      setErro('Por favor, digite uma cidade');
+      setErro('❗ Por favor, digite uma cidade');
       return;
     }
 
     setCarregando(true);
     setErro('');
 
-    // Try Executa os comandos
+// Try Executa os comandos
     try{
-      const API_KEY = "";
-      const url = "";
-      const resposta = await fetch(url);
+      const API_KEY = "50878f4678cd0841144b44b2fca0ccc0";
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`;
+      const resposta = await fetch(url)
 
-      if(!resposta.ok){
-        throw new Error('Cidade não encontrada');
-      }
+if(!resposta.ok){
+  throw new Error('❗Cidade não encontrada');
+}
 
-      const dados = await resposta.json();
-      setClima(dados);
+const dados = await resposta.json();
+setClima(dados);
+
 
     }catch (error){
       setErro(error.message);
@@ -40,6 +40,12 @@ function App() {
       setCarregando(false);
     }
   }
+  const handleKeyPress = (e) =>{
+    if (e.Key === "Enter"){
+      buscarClima();
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -58,20 +64,31 @@ function App() {
               <input 
                 type="text"
                 placeholder="Digite o nome da cidade.."
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
+                onKeyDown={handleKeyPress}
               />
-              <button>Buscar</button>
+              <button
+                onClick={buscarClima}
+                disabled={carregando}
+              >
+                {carregando ? "Buscando..." : "Buscar"}
+              </button>
             </div>
+            {/* mensagem de erro */}
+            {erro && <div className='erro-msg'>{erro}</div>}
           </div>
 
+          {clima && ( <>
           {/* Resultado do Clima */}
           <div id="card-resultado">
             <div id="cidade-info">
               <div id="cidade-nome">
                 <MapPinned style={{color: '#550808ff'}} size={48} />
-                Campinas, BR
+                {clima.nome}, {clima.sys.country}
               </div>
               <p id="cidade-desc">
-                Nublado
+                {clima.weather[0].description}
               </p>
             </div> {/* Fecha #cidade-desc*/}
 
@@ -83,50 +100,53 @@ function App() {
               </div>
             </div>
 
-            <div id="detalhe-box">
-              {/* Temperatura */}
-              <div className="detal-item">
+            <div id="detalhes-box">
+              
+              <div className="detal-item">{/* Inicio Temperatura */}
                 <div className="detal-icone">
-                    <Thermometer />
+                  <Thermometer />
                 </div>
                 <p className="detal-texto">
-                  min/max
+                  Min/Max
                 </p>
                 <p className="detal-valor">
-                  23º/27º
+                  23ºC/27ºC
                 </p>
-              </div>{/*fim  umid */}
+              </div>{/* Fim Temperatura */}
 
-              <div className="detal-item">
+              <div className="detal-item">{/* Inicio Umidade */}
                 <div className="detal-icone">
-                    <Droplet />
+                  <Droplet />
                 </div>
                 <p className="detal-texto">
-                  umidade
+                  Umidade
                 </p>
                 <p className="detal-valor">
                   12%
                 </p>
-              </div>{/*fim  Temperatura */}
+              </div>{/* Fim Umidade */}
 
-              <div className="detal-item">
+              <div className="detal-item">{/* Inicio Vento */}
                 <div className="detal-icone">
-                    <Wind />
+                  <Wind />
                 </div>
                 <p className="detal-texto">
-                  min/max
+                  Vento
                 </p>
                 <p className="detal-valor">
-                  23º/27º
+                  12 km/h
                 </p>
-              </div>{/*fim  Temperatura */}
+              </div>{/* Fim Vento */}
+
             </div>
 
-          </div> {/* Fecha #card-resultado */}
 
-          
+          </div> {/* Fecha #card-resultado */}
+            </>)}
+
         </div>
       </div>
+
     </>
   )
 }

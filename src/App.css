@@ -1,6 +1,6 @@
 .container{
   min-height: 100vh;
-  background: linear-gradient(135deg, #a600ff 0%, #009dff 100%);
+  background: linear-gradient(135deg, #442863fb 0%, #215f33 100%);
   padding: 32px;
 }
 .content{
@@ -23,18 +23,19 @@ header h1{
 }
 header p{
   font-size: 1.1em;
-  color: #bdeafe;
+  color: #00456d;
 }
 .busca-box{
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px #00000098;
+  box-sizing: 0 10px 30px #00000098;
   padding: 24px;
   margin-bottom: 24px;
 }
 .busca-container{
   display: flex;
   gap: 8px;
+
 }
 .busca-container input{
   flex: 1;
@@ -46,13 +47,13 @@ header p{
 }
 .busca-container input:focus{
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px #3b83f639;
+  box-shadow: 0 0 0 3px #3b83f652;
 }
 .busca-container button{
   padding: 12px 24px;
-  background: #3b82f6;
+  background: #3b83f6b9;
   color: #fff;
-  border: none;
+  border: nane;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
@@ -60,41 +61,27 @@ header p{
   transition: background 0.2s;
 }
 .busca-container button:hover{
-  background: #2563eb;
+  background: #533b73c3;
 }
 .busca-container button:disabled{
   cursor: not-allowed;
   background: #9ca3af;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.erro-msg{
+margin-top: 16px;
+padding: 12px;
+background: #fee2e2;
+border: 1px solid #fca5a5;
+border-radius: 8px;
+color: #b91c1c;
+}
 #card-resultado{
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 30px #00000098;
   padding: 32px;
 }
-#cidade-info{
+#ciade-info{
   text-align: center;
   margin-bottom: 24px;
 }
@@ -110,12 +97,13 @@ header p{
 }
 #cidade-desc{
   color: #4b5563;
+  text-align: center;
   text-transform: capitalize;
   font-size: 1.1em;
 }
 #temperatura-box{
-  text-align: center;
-  margin-bottom: 32px;
+text-align: center;
+margin-bottom: 32px;
 }
 #temp-valor{
   font-size: 3.7em;
@@ -125,4 +113,42 @@ header p{
 }
 #temp-sens{
   color: #4b5563;
+}
+#detalhes-box{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+.detal-item{
+  background: #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+.detal-icone{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.detal-texto{
+  font-size: 0.8em;
+  color: #444;
+  margin-bottom: 4px;
+}
+.detal-valor{
+  font-weight: bold;
+  color: #222;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px){
+  #detalhes-box{
+    grid-template-columns: 1fr;
+  }
+  #temp-valor{
+    font-size: 3em;
+  }
+  header h1{
+    font-size: 1.8em;
+  }
 }
